@@ -42,28 +42,24 @@ public class DeleteNode {
 
         if (root == null)
             return;
-
-
             if( root.right == null){
                lastNode=root;
-               return;
             }
             if(root.left==null){
                 lastNode=root;
-                return;
             }
             if(root.key==key){
                 KeyNode=root;
             }
-            else
-                return;
+
 
 
         dRec(root.left,key);
-        if (KeyNode!=null && KeyNode.key == key)
-            lastNode.key = KeyNode.key;
+        if (KeyNode!=null && KeyNode.key == key && root==null) {
+            KeyNode.key = lastNode.key;
+            lastNode=null;
+        }
         dRec(root.right,key);
-
     }
     static void callRec(Node root,int k){
         dRec(root,k);
@@ -135,6 +131,10 @@ public class DeleteNode {
         int key = 12;
         // delete(root, key);
        callRec(root,12);
+        if (KeyNode!=null && KeyNode.key == key) {
+            KeyNode.key = lastNode.key;
+            lastNode=null;
+        }
         System.out.print("\nInorder traversal " +
                 "after deletion:");
         inorder(root);
